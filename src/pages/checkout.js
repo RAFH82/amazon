@@ -2,13 +2,14 @@ import Image from "next/image";
 import {useSelector} from "react-redux";
 import Header from "../components/Header";
 import CheckoutProduct from "../components/CheckoutProduct";
-import {selectItems} from "../slices/basketSlice";
+import {selectItems, selectTotal} from "../slices/basketSlice";
 import Currency from "react-currency-formatter";
 import {useSession} from "next-auth/client";
 
 function Checkout() {
 	const [session] = useSession();
 	const items = useSelector(selectItems);
+	const total = useSelector(selectTotal);
 
 	return (
 		<div className="bg-gray-100">
@@ -23,6 +24,7 @@ function Checkout() {
 						height={250}
 						objectFit="contain"
 					/>
+
 					<div className="flex flex-col p-5 space-y-10 bg-white">
 						<h1 className="text-3xl border-b pb-4">
 							{items.length === 0
@@ -47,13 +49,13 @@ function Checkout() {
 				</div>
 
 				{/* right section */}
-				<div>
+				<div className="flex flex-col mb-5 bg-white p-10 shadow-md">
 					{items.length > 0 && (
 						<>
 							<h2 className="whitespace-nowrap">
-								Subtotal ({items.length} items):
+								Subtotal ({items.length} items):{" "}
 								<span className="font-bold">
-									{/* <Currency quantity={total} currency="CAD" /> */}
+									<Currency quantity={total} currency="CAD" />
 								</span>
 							</h2>
 
