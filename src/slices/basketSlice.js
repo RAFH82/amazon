@@ -24,30 +24,6 @@ export const basketSlice = createSlice({
 				};
 
 				state.items = [...state.items];
-
-				// // remove the old product object from the array so there are not duplicates
-				// newBasket.splice(index, 1);
-
-				// state.items = [...state.items, state.items[index]{...product, quantity: updatedQuantity}];
-
-				// // get existing array
-				// let newBasket = [...state.items];
-
-				// // get the current quantity of the item and add 1
-				// const currentQuantity = newBasket[index].quantity;
-				// const newQuantity = currentQuantity + 1;
-
-				// // update the object
-				// const updatedItem = {
-				// 	...itemToUpdate,
-				// 	quantity: newQuantity,
-				// };
-
-				// // remove the old object
-				// newBasket.splice(index, 1);
-
-				// // update the state with the new product object with an updated quantity
-				// state.items = [...newBasket, updatedItem];
 			}
 		},
 		removeFromBasket: (state, action) => {
