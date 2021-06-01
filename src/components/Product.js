@@ -10,11 +10,14 @@ const MIN_RATING = 1;
 
 function Product({id, title, price, description, category, image}) {
 	const dispatch = useDispatch();
+
 	const [rating] = useState(
 		Math.floor(Math.random() * MAX_RATING) + MIN_RATING
 	);
 
 	const [hasPrime] = useState(Math.random() < 0.5);
+
+	const quantity = 1;
 
 	const addItemToBasket = () => {
 		const product = {
@@ -26,6 +29,7 @@ function Product({id, title, price, description, category, image}) {
 			category,
 			image,
 			hasPrime,
+			quantity,
 		};
 
 		dispatch(addToBasket(product));

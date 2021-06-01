@@ -43,6 +43,7 @@ function Checkout() {
 								category={item.category}
 								image={item.image}
 								hasPrime={item.hasPrime}
+								quantity={item.quantity}
 							/>
 						))}
 					</div>
@@ -53,7 +54,9 @@ function Checkout() {
 					{items.length > 0 && (
 						<>
 							<h2 className="whitespace-nowrap">
-								Subtotal ({items.length} items):{" "}
+								Subtotal (
+								{items.reduce((total, item) => total + item.quantity, 0)}{" "}
+								items):{" "}
 								<span className="font-bold">
 									<Currency quantity={total} currency="CAD" />
 								</span>

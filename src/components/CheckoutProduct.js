@@ -13,6 +13,7 @@ function CheckoutProduct({
 	category,
 	image,
 	hasPrime,
+	quantity,
 }) {
 	const dispatch = useDispatch();
 
@@ -26,6 +27,7 @@ function CheckoutProduct({
 			category,
 			image,
 			hasPrime,
+			quantity,
 		};
 
 		dispatch(addToBasket(product));
@@ -52,6 +54,7 @@ function CheckoutProduct({
 
 				<p className="text-xs my-2 line-clamp-3">{description}</p>
 				<Currency quantity={price} currency="CAD" />
+				<p>Quantity: {quantity}</p>
 
 				{hasPrime && (
 					<div className="flex items-center space-x-2">
