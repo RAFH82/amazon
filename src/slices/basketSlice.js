@@ -17,27 +17,37 @@ export const basketSlice = createSlice({
 			if (index === -1) {
 				state.items = [...state.items, action.payload];
 			} else {
-				// product object being added
-				const itemToUpdate = action.payload;
-
-				// get existing array
-				let newBasket = [...state.items];
-
-				// get the current quantity of the item and add 1
-				const currentQuantity = newBasket[index].quantity;
-				const newQuantity = currentQuantity + 1;
-
-				// update the object
-				const updatedItem = {
-					...itemToUpdate,
-					quantity: newQuantity,
+				// update quantity of product
+				state.items[index] = {
+					...state.items[index],
+					quantity: state.items[index].quantity + 1,
 				};
 
-				// remove the old object
-				newBasket.splice(index, 1);
+				state.items = [...state.items];
 
-				// update the state with the new product object with an updated quantity
-				state.items = [...newBasket, updatedItem];
+				// // remove the old product object from the array so there are not duplicates
+				// newBasket.splice(index, 1);
+
+				// state.items = [...state.items, state.items[index]{...product, quantity: updatedQuantity}];
+
+				// // get existing array
+				// let newBasket = [...state.items];
+
+				// // get the current quantity of the item and add 1
+				// const currentQuantity = newBasket[index].quantity;
+				// const newQuantity = currentQuantity + 1;
+
+				// // update the object
+				// const updatedItem = {
+				// 	...itemToUpdate,
+				// 	quantity: newQuantity,
+				// };
+
+				// // remove the old object
+				// newBasket.splice(index, 1);
+
+				// // update the state with the new product object with an updated quantity
+				// state.items = [...newBasket, updatedItem];
 			}
 		},
 		removeFromBasket: (state, action) => {
@@ -45,29 +55,19 @@ export const basketSlice = createSlice({
 				(basketItem) => basketItem.id === action.payload.id
 			);
 
-			const newBasket = [...state.items];
-
 			if (index >= 0) {
 				// if quantity === 0 remove from cart entirely
-				if (newBasket[index].quantity === 1) {
-					newBasket.splice(index, 1);
-					state.items = newBasket;
+				if (state.items[index].quantity === 1) {
+					state.items.splice(index, 1);
+					state.items = [...state.items];
 				} else {
-					// get the current quantity of the item and add 1
-					const currentQuantity = newBasket[index].quantity;
-					const newQuantity = currentQuantity - 1;
-
-					// update the object
-					const updatedItem = {
-						...newBasket[index],
-						quantity: newQuantity,
+					// otherwise remove 1 item
+					state.items[index] = {
+						...state.items[index],
+						quantity: state.items[index].quantity - 1,
 					};
 
-					// remove the old object
-					newBasket.splice(index, 1);
-
-					// update state
-					state.items = [...newBasket, updatedItem];
+					state.items = [...state.items];
 				}
 			} else {
 				console.warn(`Product not found in basket (id: ${action.payload.id})`);
